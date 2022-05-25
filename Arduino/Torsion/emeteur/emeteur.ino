@@ -24,7 +24,8 @@ void setup()
     radio.begin();
     radio.setChannel(122);
     radio.setDataRate(RF24_2MBPS);
-
+    
+    
     radio.openWritingPipe(address); // Ouvrir le Pipe en écriture
     radio.stopListening();
 }
@@ -37,25 +38,24 @@ void loop()
     // Rempli le packet
     int i = 0;
     int nb_mesures=0;
-    int somme[6]={0,0,0,0,0,0};
+    long somme[6]={0,0,0,0,0,0};
 
     // Donnees
     while (i <5 )
     {
       // Lecture des donnees
       for (int j = 0; j < 6; j++){
-          somme[j] += analogRead(pin[j]);
+        somme[j] = somme[j]+analogRead(pin[j]);
       }
-
       nb_mesures++;
 
       if (millis() - debut > send_time * 1000/5){
           for (int j = 0; j < 6; j++){
-            packet.data[j+4*i]=map(somme[j]/(nb_mesures),0,1023,0,255);
+            packet.data[j+6*i]=map(somme[j]/(nb_mesures),200,1023,0,255);
             somme[j]=0;
           }
           i++;
-          nb_mesures = 1;
+          nb_mesures = 0;
           debut=millis();
       }
     }
