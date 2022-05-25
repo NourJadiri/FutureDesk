@@ -1,9 +1,12 @@
 package fr.p2i.desk.ArduinoReception;
 
+import java.util.Arrays;
+import fr.p2i.desk.data.BackData;
 import fr.p2i.desk.util.ArduinoManager;
 import fr.p2i.desk.util.Console;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Reception
 {
@@ -35,12 +38,6 @@ public class Reception
                 // Affichage sur la Console de la ligne transmise par l'Arduino
                 console.println("ARDUINO >> " + line);
 
-                // À vous de jouer ;-)
-                // Par exemple:
-                //   String[] data = line.split(";");
-                //   int sensorid = Integer.parseInt(data[0]);
-                //   double value = Double.parseDouble(data[1]);
-                //   ...
             }
         };
 
@@ -83,5 +80,39 @@ public class Reception
             console.log(ex);
         }
 
+    }
+
+
+    public static ArrayList<BackData> backDataFormating(String line){
+        ArrayList<BackData> backDatas = new ArrayList<>();
+
+        String[] temp = line.split(";");
+        int[] flexiforceData = new int[30];
+
+        for(int i = 0 ; i < flexiforceData.length ; i++){
+            flexiforceData[i] = Integer.parseInt(temp[i]);
+        }
+
+        int[][] flexiforceData_Formated = new int[5][6];
+
+        for(int i = 0 ; i < flexiforceData.length/6 ; i++){
+            flexiforceData_Formated[i] = getSliceOfArray(flexiforceData, 6*i, 6*(i+1)-1);
+        }
+
+        for(int i = 0 ; i < flexiforceData_Formated.length ; i++){
+            backDatas.add(new BackData(flexiforceData_Formated[i]));
+        }
+
+
+        return backDatas;
+    }
+
+    public static int[] getSliceOfArray(int[] arr, int startIndex, int endIndex){
+
+        // Get the slice of the Array
+        int[] slice = Arrays.copyOfRange(arr,startIndex,endIndex);
+
+        // return the slice
+        return slice;
     }
 }
