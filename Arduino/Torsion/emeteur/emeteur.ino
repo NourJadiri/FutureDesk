@@ -12,7 +12,7 @@ int seuil[6] = {620, 620, 620, 620, 620, 620};
 int send_time = 2;
 
 RF24 radio(9, 10);
-uint8_t address[6] = {125, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
+uint8_t address[6] = {100, 0xCE, 0xCC, 0xCE, 0xA3}; // Adresse du pipe
 void setup()
 {
     Serial.begin(115200);

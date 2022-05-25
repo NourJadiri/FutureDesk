@@ -4,7 +4,7 @@
 
 RF24 radio(9, 10);
 uint8_t address_flexiforce[6] = {122, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
-uint8_t address_torsion[6] = {122, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
+uint8_t address_torsion[6] = {100, 0xCE, 0xCC, 0xCE, 0xA3}; // Adresse du pipe
 int rcv_val = 0;
 
 packet recv;
@@ -20,7 +20,6 @@ void  print_packet(packet packet){
 void setup()
 {
     Serial.begin(115200); // Initialiser la communication série
-    Serial.println(F("Starting my first test"));
 
     radio.begin();
     radio.setChannel(122);
@@ -39,14 +38,14 @@ void loop(void)
     byte pipe_nb;
     while (radio.available(&pipe_nb))
     {
+      
         radio.read(&recv, sizeof(packet));
-        Serial.println(F("Packet received "));
         //Flexiforce
         if(pipe_nb==0){
-          Serial.println("Flexiforce");
+          Serial.println("Flexi");
         }
         else if(pipe_nb==1){
-          Serial.println("Torsion");
+          Serial.println("Torsi");
         }
         print_packet(recv);
     }
