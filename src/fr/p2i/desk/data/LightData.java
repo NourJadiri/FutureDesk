@@ -36,6 +36,6 @@ public class LightData extends SensorData {
 
     @Override
     public String toString() {
-        return r+";"+g+';'+b+";"+light;
+        return timestamp+";"+r+";"+g+';'+b+";"+light;
     }
 }
