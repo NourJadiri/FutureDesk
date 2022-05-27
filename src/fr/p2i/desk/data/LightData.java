@@ -18,6 +18,18 @@ public class LightData extends SensorData {
         this.light=light;
     }
 
+    public LightData(){
+        this.type="lights";
+    }
+    public LightData(long timestamp,int[] t){
+        this();
+        this.timestamp=timestamp;
+        light = t[0];
+        r = t[1];
+        g = t[2];
+        b = t[3];
+    }
+
     public int getR() {
         return r;
     }

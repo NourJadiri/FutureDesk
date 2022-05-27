@@ -1,9 +1,11 @@
 package fr.p2i.desk.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import fr.p2i.desk.data.BackData;
+import fr.p2i.desk.data.BottomData;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class Database {
@@ -21,7 +23,7 @@ public class Database {
         this.port = "3306";
         this.database = "db";
         this.user = "root";
-        this.password = "MasterNox0";
+        this.password = "••••••";
         this.connection = null;
     }
 
@@ -76,4 +78,34 @@ public class Database {
         queries.append(");");
         s.executeQuery(queries.toString());
     }
+
+    public List<SensorData> get(String st) throws Exception {
+        Connection c = getConnection();
+        Statement s = null;
+        s = c.createStatement();
+        String queries = new String("SELECT * FROM "+st);
+        ResultSet rs = s.executeQuery(queries);
+        List<SensorData> ls = new ArrayList<>();
+        while (rs.next()){
+            long ts = rs.getLong(0);
+            int[] a = new int[rs.getFetchSize()];
+            for(int i=0;i<rs.getFetchSize();i++){
+                a[i] = rs.getInt(i+1);
+            }
+            switch (st){
+                case "back":
+                    BackData bd = new BackData(ts,a);
+                    ls.add(bd);
+                case "bottom":
+                    BottomData b = new BottomData(ts,a);
+                    ls.add(b);
+                case "lights":
+                    BottomData z = new BottomData(ts,a);
+                    ls.add(z);
+            }
+        }
+        return ls;
+    }
+
 }
+

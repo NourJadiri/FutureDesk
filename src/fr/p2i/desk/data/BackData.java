@@ -17,7 +17,7 @@ public class BackData extends SensorData {
         this.type = "back";
     }
 
-    public BackData(int[] t){
+    public BackData(long timestamp,int[] t){
         this();
         d1 = t[0];
         d2 = t[1];

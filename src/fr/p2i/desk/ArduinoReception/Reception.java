@@ -8,8 +8,7 @@ import fr.p2i.desk.util.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Reception
-{
+public class Reception {
 
     public static void main(String[] args) {
 
@@ -83,34 +82,34 @@ public class Reception
     }
 
 
-    public static ArrayList<BackData> backDataFormating(String line){
+    public static ArrayList<BackData> backDataFormating(String line) {
         ArrayList<BackData> backDatas = new ArrayList<>();
 
         String[] temp = line.split(";");
         int[] flexiforceData = new int[30];
 
-        for(int i = 0 ; i < flexiforceData.length ; i++){
+        for (int i = 0; i < flexiforceData.length; i++) {
             flexiforceData[i] = Integer.parseInt(temp[i]);
         }
 
         int[][] flexiforceData_Formated = new int[5][6];
 
-        for(int i = 0 ; i < flexiforceData.length/6 ; i++){
-            flexiforceData_Formated[i] = getSliceOfArray(flexiforceData, 6*i, 6*(i+1)-1);
+        for (int i = 0; i < flexiforceData.length / 6; i++) {
+            flexiforceData_Formated[i] = getSliceOfArray(flexiforceData, 6 * i, 6 * (i + 1) - 1);
         }
 
-        for(int i = 0 ; i < flexiforceData_Formated.length ; i++){
-            backDatas.add(new BackData(flexiforceData_Formated[i]));
+        for (int i = 0; i < flexiforceData_Formated.length; i++) {
+            backDatas.add(new BackData(System.currentTimeMillis(),flexiforceData_Formated[i]));
         }
 
 
         return backDatas;
     }
 
-    public static int[] getSliceOfArray(int[] arr, int startIndex, int endIndex){
+    public static int[] getSliceOfArray(int[] arr, int startIndex, int endIndex) {
 
         // Get the slice of the Array
-        int[] slice = Arrays.copyOfRange(arr,startIndex,endIndex);
+        int[] slice = Arrays.copyOfRange(arr, startIndex, endIndex);
 
         // return the slice
         return slice;

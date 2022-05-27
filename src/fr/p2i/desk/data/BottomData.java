@@ -17,6 +17,17 @@ public class BottomData extends SensorData {
         this.g1=g1;
         this.g2=g2;
     }
+    public BottomData(){
+        this.type="bottom";
+    }
+    public BottomData(long timestamp,int[] t){
+        this();
+        this.timestamp=timestamp;
+        d1 = t[0];
+        d2 = t[1];
+        g1 = t[2];
+        g2 = t[3];
+    }
     @Override
     public String toString() {
         return timestamp+";"+d1+";"+d2+";"+g1+";"+g2;

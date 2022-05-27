@@ -20,4 +20,7 @@ public class SensorData {
         }
         return map;
     }
+
+    public SensorData(){}
+    public SensorData(int t,int[] a){}
 }
