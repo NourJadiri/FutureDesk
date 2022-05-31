@@ -1,9 +1,11 @@
 package fr.p2i.desk;
 
+import fr.p2i.desk.util.ArduinoManager;
 import fr.p2i.desk.util.Database;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main extends JFrame {
     public static Database db;
@@ -12,8 +14,14 @@ public class Main extends JFrame {
         this.setSize(100,100);
         this.add(new JLabel("yo ma team"));
         this.setUndecorated(true);
-        this.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+        this.setBackground(new Color(1.0f,1.0f,1.0f, 0.0f));
         this.setVisible(true);
+        ArduinoManager am = new ArduinoManager("115200");
+        try {
+            am.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
