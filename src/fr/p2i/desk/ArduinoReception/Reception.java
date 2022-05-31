@@ -24,7 +24,7 @@ public class Reception {
     public static ArrayList<BottomData> bottomTemp;
     public static ArrayList<LightData> lightTemp;
 
-    public static void main(String[] args) {
+    public static void launch(String[] args) {
 
         // Objet matérialisant la console d'exécution (Affichage Écran / Lecture
         // Clavier)

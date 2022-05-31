@@ -18,11 +18,11 @@ public class Database {
     private Connection connection;
 
     public Database() {
-        this.hostname = "127.0.0.1";
+        this.hostname = "93.115.97.68";
         this.port = "3306";
         this.database = "db";
         this.user = "root";
-        this.password = "••••••";
+        this.password = "LibérezToutMesCopains2";
         this.connection = null;
     }
 
