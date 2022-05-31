@@ -41,7 +41,7 @@ public class ArduinoManager {
                 String line;
                 try {
                     // lecture et traitement du flux en entrée de l'Arduino
-                    while ((line = vcpInput.readLine()) != null) {
+                    while ((line = vcpInput.readLine()) != null && vcpInput.readLine().endsWith(".")) {
                         ArduinoManager.this.onData(line);
                     }
 

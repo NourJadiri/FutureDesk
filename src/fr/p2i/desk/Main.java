@@ -28,6 +28,8 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         Main a = new Main();
+        DisplayPressure dp = new DisplayPressure();
+        dp.setVisible(true);
         Reception.launch(args);
         Thread thread = new Thread(){
             @Override

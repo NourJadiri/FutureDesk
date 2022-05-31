@@ -21,8 +21,8 @@ public class Database {
         this.hostname = "93.115.97.68";
         this.port = "3306";
         this.database = "db";
-        this.user = "root";
-        this.password = "LibérezToutMesCopains2";
+        this.user = "capteur";
+        this.password = "password";
         this.connection = null;
     }
 
