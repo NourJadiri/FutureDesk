@@ -17,7 +17,6 @@ public class Database {
 
     private Connection connection;
 
-
     public Database() {
         this.hostname = "127.0.0.1";
         this.port = "3306";
@@ -30,7 +29,7 @@ public class Database {
     public Connection openConnection() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://"
-                        + this.hostname + ":" + this.port + "/" + this.database,
+                + this.hostname + ":" + this.port + "/" + this.database,
                 this.user, this.password);
         return connection;
     }
@@ -53,8 +52,8 @@ public class Database {
             try {
                 connection.close();
             } catch (SQLException e) {
-                    System.out.println("Error closing MySQL");
-                    e.printStackTrace();
+                System.out.println("Error closing MySQL");
+                e.printStackTrace();
             }
         }
     }
@@ -62,17 +61,14 @@ public class Database {
     // Sognus code:
     public void insert(SensorData sd) throws Exception {
 
-
         Connection c = getConnection();
         Statement s = null;
 
-
         s = c.createStatement();
-
 
         StringBuilder queries = new StringBuilder("INSERT INTO " + sd.type + " VALUES (");
         String[] st = sd.toString().split(";");
-        for (String a : st){
+        for (String a : st) {
             queries.append(a).append(",");
         }
         queries.append(");");
@@ -83,24 +79,24 @@ public class Database {
         Connection c = getConnection();
         Statement s = null;
         s = c.createStatement();
-        String queries = new String("SELECT * FROM "+st);
+        String queries = new String("SELECT * FROM " + st);
         ResultSet rs = s.executeQuery(queries);
         List<SensorData> ls = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
             long ts = rs.getLong(0);
             int[] a = new int[rs.getFetchSize()];
-            for(int i=0;i<rs.getFetchSize();i++){
-                a[i] = rs.getInt(i+1);
+            for (int i = 0; i < rs.getFetchSize(); i++) {
+                a[i] = rs.getInt(i + 1);
             }
-            switch (st){
+            switch (st) {
                 case "back":
-                    BackData bd = new BackData(ts,a);
+                    BackData bd = new BackData(ts, a);
                     ls.add(bd);
                 case "bottom":
-                    BottomData b = new BottomData(ts,a);
+                    BottomData b = new BottomData(ts, a);
                     ls.add(b);
                 case "lights":
-                    BottomData z = new BottomData(ts,a);
+                    BottomData z = new BottomData(ts, a);
                     ls.add(z);
             }
         }
@@ -108,4 +104,3 @@ public class Database {
     }
 
 }
-

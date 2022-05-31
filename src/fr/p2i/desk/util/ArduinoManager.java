@@ -27,19 +27,20 @@ public class ArduinoManager {
         // Creation d'un flux bidirectionnel entre l'ordi et l'arduino
         this.vcpChannel = new ArduinoUsbChannel(this.port);
 
-        // Creation d'une tache qui va s'exécuter en parallèle du code séquentiel du main
+        // Creation d'une tache qui va s'exécuter en parallèle du code séquentiel du
+        // main
         this.readingThread = new Thread(new Runnable() {
 
             public void run() {
 
                 ArduinoManager.this.readingThreadRunning = true;
 
-                //création d'un flux bufferisé en entrée à partir de l'Arduino
+                // création d'un flux bufferisé en entrée à partir de l'Arduino
                 BufferedReader vcpInput = new BufferedReader(new InputStreamReader(vcpChannel.getReader()));
 
                 String line;
                 try {
-                    //lecture et traitement du flux en entrée de l'Arduino
+                    // lecture et traitement du flux en entrée de l'Arduino
                     while ((line = vcpInput.readLine()) != null) {
                         ArduinoManager.this.onData(line);
                     }
@@ -78,15 +79,15 @@ public class ArduinoManager {
         this.readingThreadRunning = false;
 
         if (this.vcpChannel != null) {
-            //libération du port de communication entre l'arduino et l'ordi
+            // libération du port de communication entre l'arduino et l'ordi
             this.vcpChannel.close();
         }
 
         if (this.readingThread != null) {
-            //Ordre d'interruption de la transmission en entrée
+            // Ordre d'interruption de la transmission en entrée
             this.readingThread.interrupt();
             try {
-                //attente de la fin du thread (au plus 1000 ms)
+                // attente de la fin du thread (au plus 1000 ms)
                 readingThread.join(1000);
             } catch (InterruptedException ex) {
                 // Ignore
@@ -123,7 +124,7 @@ public class ArduinoManager {
             List<String> virtualComPorts = ArduinoUsbChannel.listVirtualComPorts(exceptions);
             System.err.println("[ArduinoManager] " + virtualComPorts.size() + " port(s) disponible(s)");
             for (String virtualComPort : virtualComPorts) {
-                System.err.println("[ArduinoManager] - "  + virtualComPort);
+                System.err.println("[ArduinoManager] - " + virtualComPort);
             }
 
             if (virtualComPorts.size() > 0) {
@@ -153,7 +154,8 @@ public class ArduinoManager {
 
     public static void main(String[] args) {
 
-        // Objet matérialisant la console d'exécution (Affichage Écran / Lecture Clavier)
+        // Objet matérialisant la console d'exécution (Affichage Écran / Lecture
+        // Clavier)
         final Console console = new Console();
 
         // Affichage sur la console
@@ -174,16 +176,17 @@ public class ArduinoManager {
             @Override
             protected void onData(String line) {
 
-                // Cette méthode est appelée AUTOMATIQUEMENT lorsque l'Arduino envoie des données
+                // Cette méthode est appelée AUTOMATIQUEMENT lorsque l'Arduino envoie des
+                // données
                 // Affichage sur la Console de la ligne transmise par l'Arduino
                 console.println("ARDUINO >> " + line);
 
                 // À vous de jouer ;-)
                 // Par exemple:
-                //   String[] data = line.split(";");
-                //   int sensorid = Integer.parseInt(data[0]);
-                //   double value = Double.parseDouble(data[1]);
-                //   ...
+                // String[] data = line.split(";");
+                // int sensorid = Integer.parseInt(data[0]);
+                // double value = Double.parseDouble(data[1]);
+                // ...
             }
         };
 

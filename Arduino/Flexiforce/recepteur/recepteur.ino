@@ -44,13 +44,13 @@ void loop(void)
         radio.read(&recv, sizeof(packet));
         //Flexiforce
         if(pipe_nb==0){
-          Serial.println("Flexi");
+          Serial.print("Flexi:");
         }
         else if(pipe_nb==1){
-          Serial.println("Torsi");
+          Serial.print("Torsi:");
         }
         else if(pipe_nb==2){
-          Serial.println("Lumi");
+          Serial.print("Lumi:");
         }
         print_packet(recv);
     }
