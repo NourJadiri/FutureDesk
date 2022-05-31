@@ -1,5 +1,6 @@
 package fr.p2i.desk;
 
+import fr.p2i.desk.ArduinoReception.Reception;
 import fr.p2i.desk.util.ArduinoManager;
 import fr.p2i.desk.util.Database;
 
@@ -27,6 +28,15 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         Main a = new Main();
+        Reception.launch(args);
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+
+                super.run();
+            }
+        };
+        thread.start();
 
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Reception {
 
-    public static void main(String[] args) {
+    public static void launch(String[] args) {
 
         // Objet matérialisant la console d'exécution (Affichage Écran / Lecture Clavier)
         final Console console = new Console();

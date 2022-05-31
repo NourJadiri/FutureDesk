@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DataHandler<E extends SensorData> {
 
-    private static boolean work = false;
+    public static boolean work = false;
     private List<E> tempList = new ArrayList<E>();
     private List<E> list = new ArrayList<E>();
     public void add(E d){
