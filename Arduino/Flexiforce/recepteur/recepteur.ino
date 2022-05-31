@@ -5,6 +5,7 @@
 RF24 radio(9, 10);
 uint8_t address_flexiforce[6] = {122, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
 uint8_t address_torsion[6] = {100, 0xCE, 0xCC, 0xCE, 0xA3}; // Adresse du pipe
+uint8_t address_lumiere[6] = {100, 0xCE, 0xCC, 0xCE, 0xC3}; // Adresse du pipe
 int rcv_val = 0;
 
 packet recv;
@@ -27,6 +28,7 @@ void setup()
 
     radio.openReadingPipe(0, address_flexiforce);
     radio.openReadingPipe(1, address_torsion);
+    radio.openReadingPipe(2, address_lumiere);
     radio.startListening();
 }
 
@@ -46,6 +48,9 @@ void loop(void)
         }
         else if(pipe_nb==1){
           Serial.println("Torsi");
+        }
+        else if(pipe_nb==2){
+          Serial.println("Lumi");
         }
         print_packet(recv);
     }

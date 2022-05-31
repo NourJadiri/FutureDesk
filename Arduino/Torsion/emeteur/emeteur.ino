@@ -49,7 +49,7 @@ void loop()
       }
       nb_mesures++;
 
-      if (millis() - debut > send_time * 1000/5){
+      if (millis() - debut > send_time * 1000/6){
           for (int j = 0; j < 6; j++){
             packet.data[j+6*i]=map(somme[j]/(nb_mesures),200,1023,0,255);
             somme[j]=0;
