@@ -20,7 +20,8 @@ void  print_packet(packet packet){
 }
 
 RF24 radio(9, 10);
-uint8_t address[6] = {122, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
+//uint8_t address[6] = {122, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
+const uint64_t address= 0xB3B4B5B6CDLL;
 
 void setup()
 {
@@ -37,7 +38,6 @@ void setup()
   radio.openWritingPipe(address);
   radio.stopListening();
 
-  Serial.println("Setup end");
 }
 
 void loop()
@@ -77,7 +77,7 @@ void loop()
     }
   }
 
-  print_packet(packet_lumiere);
+  //print_packet(packet_lumiere);
 
   //Reseau
 

@@ -4,7 +4,7 @@
 #include "packet.h"
 
 // Pin dans l'ordre dd, da, gd, ga
-int pin[4] = {A1, A2, A3, A4};
+int pin[4] = {A0, A1, A2, A3};
 
 // Time between two sends
 int send_time = 2;

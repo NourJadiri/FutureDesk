@@ -1,4 +1,4 @@
-int ffs1 = A1; // FlexiForce sensor is connected analog pin A0 of arduino or mega.
+int ffs1 = A2; // FlexiForce sensor is connected analog pin A0 of arduino or mega.
 
 int ffsdata = 0;
 float vout;
@@ -16,5 +16,4 @@ void loop()
   Serial.print("Capteur de torsion: ");
   Serial.print(ffsdata);
   Serial.println("");
-  delay(100);
 }
