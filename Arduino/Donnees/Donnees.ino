@@ -7,7 +7,12 @@ void setup() {
 void  print_packet(int data[]){
   for(int i=0;i<32;i++){
     Serial.print(data[i]);
-    Serial.print("; ");
+    if(i<31){
+      Serial.print(";");
+    }
+    else{
+       Serial.print(".");
+    }
   }
   Serial.println("");
 }

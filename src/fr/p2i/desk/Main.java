@@ -17,12 +17,7 @@ public class Main extends JFrame {
         this.setUndecorated(true);
         this.setBackground(new Color(1.0f,1.0f,1.0f, 0.0f));
         this.setVisible(true);
-        ArduinoManager am = new ArduinoManager("115200");
-        try {
-            am.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 
@@ -31,14 +26,7 @@ public class Main extends JFrame {
         DisplayPressure dp = new DisplayPressure();
         dp.setVisible(true);
         Reception.launch(args);
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
 
-                super.run();
-            }
-        };
-        thread.start();
 
     }
 }

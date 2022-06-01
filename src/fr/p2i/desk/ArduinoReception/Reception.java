@@ -55,8 +55,10 @@ public class Reception {
                 // Affichage sur la Console de la ligne transmise par l'Arduino
                 console.println("ARDUINO >> " + line);
 
-                String type = line.split(":")[0];
-                String data = line.split(":")[1];
+                String[] ab = line.split(":");
+                for(String q : ab) System.out.println(q);
+                String type = ab[0];
+                String data = ab[1];
                 if (type == "torsi") {
                     ArrayList<BackData> temp = Reception.backDataFormating(data);
                     for (BackData x : temp) {
