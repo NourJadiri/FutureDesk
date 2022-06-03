@@ -68,11 +68,14 @@ public class Database {
 
         StringBuilder queries = new StringBuilder("INSERT INTO " + sd.type + " VALUES (");
         String[] st = sd.toString().split(";");
-        for (String a : st) {
-            queries.append(a).append(",");
+        for (int i=0;i<st.length;i++) {
+            queries.append(st[i]);
+            if(i<st.length-1){
+                queries.append(",");
+            }
         }
         queries.append(");");
-        s.executeQuery(queries.toString());
+        s.executeUpdate(queries.toString());
     }
 
     public List<SensorData> get(String st) throws Exception {

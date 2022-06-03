@@ -2,6 +2,7 @@
   <library name="jssc-2.9.4">
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/jssc-2.9.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/mysql-connector-java-8.0.19.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

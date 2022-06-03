@@ -56,12 +56,12 @@ public class ArduinoManager {
         });
 
         this.readingThread.start();
-        try {
+        /*try {
             Thread.sleep(500);
         } catch (InterruptedException ex) {
             // Ignore
             ex.printStackTrace(System.err);
-        }
+        }*/
 
         try {
             this.vcpChannel.open();
@@ -128,7 +128,7 @@ public class ArduinoManager {
             }
 
             if (virtualComPorts.size() > 0) {
-                myVirtualComPort = virtualComPorts.get(0);
+                myVirtualComPort = virtualComPorts.get(1);
             }
 
             if (myVirtualComPort == null) {

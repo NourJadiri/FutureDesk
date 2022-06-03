@@ -20,9 +20,9 @@ enum typeDonne {
 };
 
 public class Reception {
-    public static ArrayList<BackData> backTemp;
-    public static ArrayList<BottomData> bottomTemp;
-    public static ArrayList<LightData> lightTemp;
+    public static ArrayList<BackData> backTemp=new ArrayList<>();
+    public static ArrayList<BottomData> bottomTemp=new ArrayList<>();
+    public static ArrayList<LightData> lightTemp=new ArrayList<>();
 
     public static void launch(String[] args) {
 
@@ -58,23 +58,47 @@ public class Reception {
                 String[] ab = line.split(":");
                 for(String q : ab) System.out.println(q);
                 String type = ab[0];
+                if(ab.length==1){
+                    return;
+                }
                 String data = ab[1];
-                if (type == "torsi") {
+                data= data.replace(".","");
+                System.out.println(data);
+                //See if data is correctly formated
+                String[] formated=data.split(";");
+                if(formated.length!=32){
+                    return;
+                }
+                for(int i=0;i< formated.length;i++){
+                    try{
+                        Integer temp= Integer.parseInt(formated[i]);
+                    } catch(NumberFormatException n){
+                        n.printStackTrace();
+                        return;
+                    }
+                }
+                //Remove the trailing '.'
+                data=data.replace(".","");
+                if (type.equals("Torsi")) {
                     ArrayList<BackData> temp = Reception.backDataFormating(data);
+                    System.out.print("size of backdata: ");
+                    System.out.println(temp.size());
                     for (BackData x : temp) {
                         backTemp.add(x);
                     }
-                } else if (type == "lumi") {
+                } else if (type.equals("Lumi")) {
                     ArrayList<LightData> temp = Reception.lightDataFormating(data);
                     for (LightData x : temp) {
                         lightTemp.add(x);
                     }
-                } else if (type == "flexi") {
+                } else if (type.equals("Flexi")) {
                     ArrayList<BottomData> temp = Reception.bottomDataFormating(data);
                     for (BottomData x : temp) {
                         bottomTemp.add(x);
                     }
                 }
+                // Addicione a la base de données
+
             }
         };
 
@@ -109,36 +133,7 @@ public class Reception {
                     }
                 }
 
-                // Addicione a la base de données
-                if (Reception.bottomTemp.size() >= 30 * 8) {
-                    BottomData moyen = BottomData.moyenne(Reception.bottomTemp);
-                    try {
-                        Main.db.insert(moyen);
-                    } catch (Exception e) {
-                        System.out.println("Erreur ajout BottomData");
-                        e.printStackTrace();
-                    }
-                }
 
-                if (Reception.backTemp.size() >= 30 * 5) {
-                    BackData moyen = BackData.moyenne(Reception.backTemp);
-                    try {
-                        Main.db.insert(moyen);
-                    } catch (Exception e) {
-                        System.out.println("Erreur ajout BackData");
-                        e.printStackTrace();
-                    }
-                }
-
-                if (Reception.backTemp.size() >= 30 * 8) {
-                    LightData moyen = LightData.moyenne(Reception.lightTemp);
-                    try {
-                        Main.db.insert(moyen);
-                    } catch (Exception e) {
-                        System.out.println("Erreur ajout LightsData");
-                        e.printStackTrace();
-                    }
-                }
             }
 
             console.log("ARRÊT de la connexion");
@@ -165,7 +160,7 @@ public class Reception {
         int[][] torsionData_Formated = new int[5][6];
 
         for (int i = 0; i < torsionData.length / 6; i++) {
-            torsionData_Formated[i] = getSliceOfArray(torsionData, 6 * i, 6 * (i + 1) - 1);
+            torsionData_Formated[i] = getSliceOfArray(torsionData, 6 * i, 6 * (i + 1) );
         }
 
         for (int i = 0; i < torsionData_Formated.length; i++) {
@@ -181,14 +176,14 @@ public class Reception {
         String[] temp = line.split(";");
         int[] flexiforceData = new int[32];
 
-        for (int i = 0; i < flexiforceData.length; i++) {
+        for (int i = 0; i < temp.length; i++) {
             flexiforceData[i] = Integer.parseInt(temp[i]);
         }
 
         int[][] flexiforceData_Formated = new int[8][4];
 
         for (int i = 0; i < flexiforceData.length / 6; i++) {
-            flexiforceData_Formated[i] = getSliceOfArray(flexiforceData, 4 * i, 4 * (i + 1) - 1);
+            flexiforceData_Formated[i] = getSliceOfArray(flexiforceData, 4 * i, 4 * (i + 1));
         }
 
         for (int i = 0; i < flexiforceData_Formated.length; i++) {
@@ -204,14 +199,15 @@ public class Reception {
         String[] temp = line.split(";");
         int[] lightData = new int[32];
 
-        for (int i = 0; i < lightData.length; i++) {
-            lightData[i] = Integer.parseInt(temp[i]);
-        }
+        for (int i = 0; i < temp.length; i++) {
+                lightData[i] = Integer.parseInt(temp[i]);
+            }
+
 
         int[][] lightData_Formated = new int[8][4];
 
         for (int i = 0; i < lightData.length / 6; i++) {
-            lightData_Formated[i] = getSliceOfArray(lightData, 4 * i, 4 * (i + 1) - 1);
+            lightData_Formated[i] = getSliceOfArray(lightData, 4 * i, 4 * (i + 1));
         }
 
         for (int i = 0; i < lightData_Formated.length; i++) {

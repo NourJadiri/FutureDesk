@@ -8,12 +8,12 @@ float vout;
 void setup()
 {
   Serial.begin(9600);
-  pinMode(ffs0, INPUT);
+  //pinMode(ffs0, INPUT);
   pinMode(ffs1, INPUT);
   pinMode(ffs2, INPUT);
   pinMode(ffs3, INPUT);
   pinMode(ffs4, INPUT);
-  pinMode(ffs5, INPUT);
+  //pinMode(ffs5, INPUT);
 }
 
 void loop()
@@ -27,6 +27,8 @@ void loop()
   //vout = (ffsdata * 5.0) / 1023.0;
   //vout = vout * cf ;
   Serial.println("Flexi Force sensor: ");
+  Serial.print(ffsdata0);
+  Serial.print(" ");
   Serial.print(ffsdata1);
   Serial.print(" ");
   Serial.print(ffsdata2);
@@ -35,6 +37,7 @@ void loop()
   Serial.print(" ");
   Serial.print(ffsdata4);
   Serial.print(" ");
+  Serial.print(ffsdata5);
   Serial.println("");
   delay(100);
 }
