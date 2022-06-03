@@ -128,7 +128,7 @@ public class ArduinoManager {
             }
 
             if (virtualComPorts.size() > 0) {
-                myVirtualComPort = virtualComPorts.get(1);
+                myVirtualComPort = virtualComPorts.get(0);
             }
 
             if (myVirtualComPort == null) {

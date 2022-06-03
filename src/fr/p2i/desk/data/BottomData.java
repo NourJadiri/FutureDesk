@@ -27,18 +27,22 @@ public class BottomData extends SensorData {
     public BottomData(long timestamp, int[] t) {
         this();
         this.timestamp = timestamp;
-        d1 = t[0];
+        //Droit devant
+        d1 = t[3];
+        //Droit fond
         d2 = t[1];
+        //Gauche devant
         g1 = t[2];
-        g2 = t[3];
+        //Gauche fond
+        g2 = t[0];
     }
 
     public int[] getBottomData() {
         int[] result = new int[6];
         result[0] = d1;
-        result[0] = d2;
-        result[0] = g1;
-        result[0] = g2;
+        result[1] = d2;
+        result[2] = g1;
+        result[3] = g2;
         return result;
     }
 

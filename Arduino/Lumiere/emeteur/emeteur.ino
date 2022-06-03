@@ -54,6 +54,7 @@ void loop()
 
   while (i < 8) {
     //Capteur de couleur
+    
     somme[0] += ReadColour(RED); //Read colors value to serial communication
     somme[1] += ReadColour(GREEN);
     somme[2] += ReadColour(BLUE);

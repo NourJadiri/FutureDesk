@@ -15,9 +15,10 @@ packet recv;
 void  print_packet(packet packet){
   for(int i=0;i<32;i++){
     Serial.print(packet.data[i]);
-    Serial.print("; ");
+    if(i<31)
+      Serial.print(";");
   }
-  Serial.println("");
+  Serial.println(".");
 }
 
 void setup()
