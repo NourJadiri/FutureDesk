@@ -14,14 +14,9 @@ import java.util.ArrayList;
 
 public class Main extends JFrame {
     public static Database db;
+    public static DisplayPressure dp;
     public Main(){
         db = new Database();
-        this.setSize(100,100);
-        this.add(new JLabel("yo ma team"));
-        this.setUndecorated(true);
-        this.setBackground(new Color(1.0f,1.0f,1.0f, 0.0f));
-        this.setVisible(true);
-
     }
 
 
@@ -32,6 +27,11 @@ public class Main extends JFrame {
         Thread b = new Thread(){
             @Override
             public void run() {
+                try {
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 while(true){
                     System.out.println("z@ + "+Reception.bottomTemp.size()+" / "+Reception.backTemp.size() +" . "+Reception.lightTemp.size());
                     if (Reception.bottomTemp.size() >= 30 * 8) {
@@ -75,7 +75,8 @@ public class Main extends JFrame {
                 }
             }
         };
-        b.start();
+        //b.start();
+        dp = new DisplayPressure();
         Reception.launch(args);
 
 

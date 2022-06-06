@@ -54,9 +54,9 @@ public class LightData extends SensorData {
     public int[] getLightData() {
         int[] result = new int[4];
         result[0] = r;
-        result[0] = g;
-        result[0] = b;
-        result[0] = light;
+        result[1] = g;
+        result[2] = b;
+        result[3] = light;
         return result;
     }
 

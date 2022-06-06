@@ -1,13 +1,17 @@
 package fr.p2i.desk.ArduinoReception;
 
 import java.util.Arrays;
+
+import fr.p2i.desk.DisplayPressure;
 import fr.p2i.desk.data.BackData;
 import fr.p2i.desk.data.BottomData;
 import fr.p2i.desk.data.LightData;
 import fr.p2i.desk.util.ArduinoManager;
 import fr.p2i.desk.util.Console;
+import fr.p2i.desk.util.DataHandler;
 import fr.p2i.desk.util.Database;
 import fr.p2i.desk.Main;
+import org.jfree.data.time.FixedMillisecond;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -94,10 +98,16 @@ public class Reception {
                 } else if (type.equals("Flexi")) {
                     ArrayList<BottomData> temp = Reception.bottomDataFormating(data);
                     for (BottomData x : temp) {
+                        double a = DataHandler.calculateSD(x.getBottomData());
+                        try {
+                            Main.dp.setBD(x);
+                        } catch (Exception e){
+
+                        }
+                        DisplayPressure.ts.addOrUpdate(new FixedMillisecond(),a);
                         bottomTemp.add(x);
                     }
                 }
-                // Addicione a la base de données
 
             }
         };

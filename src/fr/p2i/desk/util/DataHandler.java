@@ -25,6 +25,24 @@ public class DataHandler<E extends SensorData> {
         return list;
     }
 
+    public static double calculateSD(int numArray[])
+    {
+        double sum = 0.0, standardDeviation = 0.0;
+        int length = numArray.length;
+
+        for(double num : numArray) {
+            sum += (double)num;
+        }
+
+        double mean = sum/length;
+
+        for(double num: numArray) {
+            standardDeviation += Math.pow(num - mean, 2);
+        }
+
+        return Math.sqrt(standardDeviation/length);
+    }
+
     public void push(){
         for(E a : tempList) {
             try {

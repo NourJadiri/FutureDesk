@@ -34,5 +34,5 @@ void loop() {
 
   print_packet(data);
   cycle=(cycle+1)%3;
-  delay(100);
+  delay(200);
 }

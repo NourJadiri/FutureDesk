@@ -14,7 +14,11 @@ int send_time = 2;
 void  print_packet(packet packet){
   for(int i=0;i<32;i++){
     Serial.print(packet.data[i]);
-    Serial.print("; ");
+    if(i==31){
+      Serial.print(".");
+    } else {
+      Serial.print(";");
+    }
   }
   Serial.println("");
 }
@@ -32,12 +36,12 @@ void setup()
   pinMode(outPin, INPUT); //Pin Mode s2Pin as Input
   pinMode(intensityPin, INPUT);
 
-  radio.begin();
+  /**radio.begin();
   radio.setChannel(122);
   radio.setDataRate(RF24_2MBPS);
 
   radio.openWritingPipe(address);
-  radio.stopListening();
+  radio.stopListening();*/
 
 }
 
@@ -52,6 +56,7 @@ void loop()
   int i = 0;
   long somme[4] = {0, 0, 0, 0};
   int nbMesures = 0;
+  Serial.print("Lumi:");
 
   while (i < 8) {
     //Capteur de couleur
@@ -80,7 +85,6 @@ void loop()
   }
 
   print_packet(packet_lumiere);
-
   
 }
 

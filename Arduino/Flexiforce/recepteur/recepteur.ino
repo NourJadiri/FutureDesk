@@ -6,8 +6,6 @@ RF24 radio(9, 10);
 uint8_t address_flexiforce[6] = {122, 0xCE, 0xCC, 0xCE, 0xCC}; // Adresse du pipe
 const uint64_t address_torsion=0xB3B4B5B6F1LL;
 const uint64_t address_lumiere= 0xB3B4B5B6CDLL;
-//uint8_t address_torsion[6] = {100, 0xCE, 0xCC, 0xCE, 0x66}; // Adresse du pipe
-//uint8_t address_lumiere[6] = {110, 0xCE, 0xCC, 0xCE, 0x66}; // Adresse du pipe
 int rcv_val = 0;
 
 packet recv;

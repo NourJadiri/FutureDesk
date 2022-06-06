@@ -38,7 +38,7 @@ public class BottomData extends SensorData {
     }
 
     public int[] getBottomData() {
-        int[] result = new int[6];
+        int[] result = new int[4];
         result[0] = d1;
         result[1] = d2;
         result[2] = g1;

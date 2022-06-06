@@ -16,12 +16,16 @@ public class DisplayFlexion extends JFrame {
     public JPanel F5;
     public JPanel F6;
 
+    public static void main(String[] args) {
+        DisplayFlexion df = new DisplayFlexion();
+    }
+
     public DisplayFlexion() {
-        icon = new ImageIcon(new ImageIcon("back.jpg").getImage().getScaledInstance(Width, Height, Image.SCALE_DEFAULT));
+        icon = new ImageIcon(new ImageIcon("/Users/massin/Documents/BDE/SS/dos.png").getImage().getScaledInstance(Width, Height, Image.SCALE_DEFAULT));
         image= new JLabel();
         image.setIcon(icon);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("My Frame");
+        setTitle("Flexion Frame");
         setSize(Width, Height);
 
         F1= new JPanel();

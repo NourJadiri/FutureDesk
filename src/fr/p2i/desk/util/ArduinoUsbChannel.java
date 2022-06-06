@@ -54,7 +54,7 @@ public class ArduinoUsbChannel {
                 SerialPort.STOPBITS_1,
                 SerialPort.PARITY_NONE);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
 
-        int mask = SerialPort.MASK_RXCHAR; // + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+        int mask = SerialPort.MASK_RXCHAR; //+ SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
         serialPort.setEventsMask(mask);//Set mask
         serialPort.addEventListener(new SerialPortEventListener() {
 
@@ -65,7 +65,7 @@ public class ArduinoUsbChannel {
                     try {
                         byte buffer[] = serialPort.readBytes();
 
-                        //System.err.println("=> VCP Data String received: " + new String(buffer));
+                      //  System.err.println("=> VCP Data String received: " + new String(buffer));
 
                         if (buffer != null) {
                             vcpOutputInnerStreamWriter.write(buffer);

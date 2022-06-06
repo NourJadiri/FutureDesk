@@ -41,7 +41,7 @@ public class ArduinoManager {
                 String line;
                 try {
                     // lecture et traitement du flux en entrée de l'Arduino
-                    while ((line = vcpInput.readLine()) != null && vcpInput.readLine().endsWith(".")) {
+                    while ((line = vcpInput.readLine()) != null && line.endsWith(".")) {
                         ArduinoManager.this.onData(line);
                     }
 
@@ -128,7 +128,7 @@ public class ArduinoManager {
             }
 
             if (virtualComPorts.size() > 0) {
-                myVirtualComPort = virtualComPorts.get(0);
+                myVirtualComPort = virtualComPorts.get(1);
             }
 
             if (myVirtualComPort == null) {
