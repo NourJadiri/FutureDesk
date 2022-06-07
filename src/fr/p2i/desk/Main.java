@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class Main extends JFrame {
     public static Database db;
     public static DisplayPressure dp;
+    public static DisplayFlexion df;
+    public static DisplayLights dl;
     public Main(){
         db = new Database();
     }
@@ -75,8 +77,9 @@ public class Main extends JFrame {
                 }
             }
         };
-        //b.start();
+        b.start();
         dp = new DisplayPressure();
+        dl = new DisplayLights();
         Reception.launch(args);
 
 

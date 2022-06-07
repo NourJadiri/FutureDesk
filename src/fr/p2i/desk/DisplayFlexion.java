@@ -1,4 +1,7 @@
 package fr.p2i.desk;
+import fr.p2i.desk.data.BackData;
+import fr.p2i.desk.data.BottomData;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -66,31 +69,29 @@ public class DisplayFlexion extends JFrame {
 
         setVisible(true);
     }
-    public double mapG(double val){
-        double x=-188/(this.max-this.min);
-        double b=255-(this.min*x);
-        double G=val*x+b;
-
-        return G;
-    }
-
-    public double mapR(double val){
-        double x=-135/(this.max-this.min);
-        double b=255-this.min*x;
-        double R=val*x+b;
-        System.out.println("R="+R);
-
+    public double map(double val, double Max, double Min){
+        double a = (val - Min)/(Max-Min);
+        double R = (a * 164.0D)+90.0D;
         return R;
     }
 
-    public void setColor(JPanel P, double val) {
-        if (val>=45) {
-
-            P.setBackground(new Color((int) this.mapR(val),0,0));
-            System.out.println(P + "changed");
+    public void setBD(BackData bd){
+        for(int a : bd.getBackData()){
+            System.out.println(a);
+        }
+        setColor(F2,bd.getBackData()[0], 255,80,180);
+        setColor(F1,bd.getBackData()[2], 255,80,180);
+        setColor(F4,bd.getBackData()[1], 255,80,200);
+        setColor(F3,bd.getBackData()[3], 255,80,200);
+        setColor(F5,bd.getBackData()[4], 255,80,200);
+        setColor(F6,bd.getBackData()[5], 255,80,200);
+    }
+    public void setColor(JPanel P, double val,double Max, double Min, double critical) {
+        if (val<=critical) {
+            P.setBackground(new Color(0,(int) this.map(val,Max,Min),0));
+            //  System.out.println(P + "changed");
         } else {
-
-            P.setBackground(new Color(0,(int) this.mapG(val),0));
+            P.setBackground(new Color((int) this.map(val,Max,Min),0,0));
         }
     }
 

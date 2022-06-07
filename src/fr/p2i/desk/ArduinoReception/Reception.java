@@ -2,6 +2,7 @@ package fr.p2i.desk.ArduinoReception;
 
 import java.util.Arrays;
 
+import fr.p2i.desk.DisplayLights;
 import fr.p2i.desk.DisplayPressure;
 import fr.p2i.desk.data.BackData;
 import fr.p2i.desk.data.BottomData;
@@ -89,21 +90,37 @@ public class Reception {
                     System.out.println(temp.size());
                     for (BackData x : temp) {
                         backTemp.add(x);
+                        try {
+                            Main.df.setBD(x);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                            //   Main.dp.setBD(new BottomData(System.currentTimeMillis(),new int[]{-1,-1,-1,-1}));
+                        }
                     }
                 } else if (type.equals("Lumi")) {
                     ArrayList<LightData> temp = Reception.lightDataFormating(data);
                     for (LightData x : temp) {
+                        if(x.getB()==0&&x.getG()==0&&x.getR()==0) continue;
                         lightTemp.add(x);
+                        System.out.println(x.toString());
+                        if(x.getB()!=0) Main.dl.setValueColor(x.getB(),"BLUE");
+                        if(x.getG()!=0) Main.dl.setValueColor(x.getG(),"GREEN");
+                        if(x.getR()!=0) Main.dl.setValueColor(x.getR(),"RED");
+                        if(x.getLight()!=0) Main.dl.setValueColor(x.getLight(),"INTENSITY");
                     }
                 } else if (type.equals("Flexi")) {
                     ArrayList<BottomData> temp = Reception.bottomDataFormating(data);
                     for (BottomData x : temp) {
+                        if(x.getBottomData()[0]==0&&x.getBottomData()[1]==0&&x.getBottomData()[2]==0&&x.getBottomData()[3]==0) continue;
                         double a = DataHandler.calculateSD(x.getBottomData());
+                        a = 100-a;
                         try {
                             Main.dp.setBD(x);
                         } catch (Exception e){
-
+                            e.printStackTrace();
+                         //   Main.dp.setBD(new BottomData(System.currentTimeMillis(),new int[]{-1,-1,-1,-1}));
                         }
+                        System.out.println("score : "+a);
                         DisplayPressure.ts.addOrUpdate(new FixedMillisecond(),a);
                         bottomTemp.add(x);
                     }

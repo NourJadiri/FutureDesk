@@ -14,6 +14,7 @@ import org.jfree.data.xy.XYDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Random;
 
 public class DisplayPressure extends JFrame {
@@ -54,8 +55,9 @@ public class DisplayPressure extends JFrame {
     }
 
     public DisplayPressure() {
-        this.setBounds(300,300,300, 600);
-        this.setUndecorated(true);
+        this.setBounds(300,300,300, 630);
+        this.setTitle("Chair sensors");
+        this.setUndecorated(false);
         this.setBackground(Color.BLACK);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -71,7 +73,7 @@ public class DisplayPressure extends JFrame {
 
         P2 = new JPanel();
         P2.setBounds(150, 0, 150, 150);
-        P2.setBackground(Color.RED);
+        P2.setBackground(Color.GREEN);
         JLabel J2= new JLabel("P2");
         P2.add(J2);
         this.add(P2);
@@ -79,7 +81,7 @@ public class DisplayPressure extends JFrame {
 
         P3 = new JPanel();
         P3.setBounds(0, 150, 150, 150);
-        P3.setBackground(Color.BLUE);
+        P3.setBackground(Color.GREEN);
         JLabel J3= new JLabel("P3");
         P3.add(J3);
         this.add(P3);
@@ -87,7 +89,7 @@ public class DisplayPressure extends JFrame {
 
         P4 = new JPanel();
         P4.setBounds(150, 150, 150, 150);
-        P4.setBackground(Color.YELLOW);
+        P4.setBackground(Color.GREEN);
         JLabel J4= new JLabel("P4");
         P4.add(J4);
         this.add(P4);
@@ -108,7 +110,20 @@ public class DisplayPressure extends JFrame {
         JPanel jPanel4 = new JPanel();
         jPanel4.setBounds(0,300,300,300);
         jPanel4.add(chartPanel, BorderLayout.SOUTH);
+        JPanel jPanel = new JPanel();
+        jPanel.add(new JTextArea(""));
+        jPanel.setBounds(300,600,100,30);
 
+        this.add(new JButton(new AbstractAction("Show graph") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(jPanel4.isVisible()){
+                    jPanel4.setVisible(false);
+
+                }
+            }
+
+        }));
         this.add(jPanel4);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -117,35 +132,30 @@ public class DisplayPressure extends JFrame {
     }
 
 
-    public double mapG(double val, double Max, double Min){
-        double x=-188/(Max-Min);
-        double b=255-(Min*x);
-        double G=val*x+b;
 
-        return G;
-    }
 
-    public double mapR(double val, double Max, double Min){
-        double x=-135/(Max-Min);
-        double b=255-Min*x;
-        double R=val*x+b;
-
+    public double map(double val, double Max, double Min){
+        double a = (val - Min)/(Max-Min);
+        double R = (a * 164.0D)+90.0D;
         return R;
     }
 
     public void setBD(BottomData bd){
-        setColor(P1,bd.getBottomData()[0], 255,94,200);
-        setColor(P2,bd.getBottomData()[2], 255,94,184);
-        setColor(P3,bd.getBottomData()[1], 255,94,220);
-        setColor(P4,bd.getBottomData()[3], 255,94,230);
+        for(int a : bd.getBottomData()){
+            System.out.println(a);
+        }
+        setColor(P2,bd.getBottomData()[0], 255,80,180);
+        setColor(P1,bd.getBottomData()[2], 255,80,180);
+        setColor(P4,bd.getBottomData()[1], 255,80,200);
+        setColor(P3,bd.getBottomData()[3], 255,80,200);
     }
 
     public void setColor(JPanel P, double val,double Max, double Min, double critical) {
         if (val<=critical) {
-            P.setBackground(new Color(0,(int) this.mapG(val,Max,Min),0));
-            System.out.println(P + "changed");
+            P.setBackground(new Color(0,(int) this.map(val,Max,Min),0));
+          //  System.out.println(P + "changed");
         } else {
-            P.setBackground(new Color((int) this.mapR(val,Max,Min),0,0));
+            P.setBackground(new Color((int) this.map(val,Max,Min),0,0));
         }
     }
 }
